@@ -22,8 +22,6 @@ public class SimpleMagnet
 	@SidedProxy(clientSide = SReference.CLIENT_PROXY_CLASS, serverSide = SReference.SERVER_PROXY_CLASS)
 	public static CommonProxy		proxy;
 	
-	public static boolean hasCheckedVersion = false;
-	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{	

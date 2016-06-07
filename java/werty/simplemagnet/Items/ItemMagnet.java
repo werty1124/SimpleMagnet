@@ -1,8 +1,10 @@
 package werty.simplemagnet.Items;
 
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,8 +24,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import scala.actors.threadpool.Arrays;
 import werty.simplemagnet.Config;
+import werty.simplemagnet.client.MagnetFX;
 
 public class ItemMagnet extends Item
 {	
@@ -79,9 +81,9 @@ public class ItemMagnet extends Item
 			
 			if(amountHeld(player) <= 1 && enabled == true)
 			{
-				double x = entityIn.posX;
-				double y = entityIn.posY + 1.5;
-				double z = entityIn.posZ;
+				double x = player.posX;
+				double y = player.posY + 1.5;
+				double z = player.posZ;
 				
 				int range = Config.magRange;
 				int cooldown = stack.getTagCompound().getInteger("cooldown");
@@ -99,9 +101,14 @@ public class ItemMagnet extends Item
 							isPulling = true;
 							
 							double factor = Config.pullSpeed;
-							e.motionX += (x - e.posX) * factor;
-							e.motionY += (y - e.posY) * factor;
-							e.motionZ += (z - e.posZ) * factor;
+							
+							e.addVelocity((x - e.posX) * factor, (y - e.posY) * factor, (z - e.posZ) * factor);
+							
+							if(worldIn.isRemote && Config.drawParticles)
+							{
+								MagnetFX mag1= new MagnetFX(worldIn, e.posX, e.posY + 0.3, e.posZ, 0, 0, 0);
+								Minecraft.getMinecraft().effectRenderer.addEffect(mag1);
+							}
 							
 							if(pull == Config.maxPull)
 							{
