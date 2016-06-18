@@ -43,14 +43,7 @@ public class ItemMagnet extends Item
     {
 		if(!worldIn.isRemote)
 		{
-			if(this.enabled == true)
-			{
-				this.enabled = false;
-			}
-			else
-			{
-				this.enabled = true;
-			}
+			this.enabled = !this.enabled;
 		}
 		return EnumActionResult.SUCCESS;
     }
