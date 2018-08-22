@@ -96,7 +96,7 @@ public class ItemMagnet extends Item
 				{
 					if(!player.isSneaking() && cooldown == 0)
 					{
-						if(!isBlackListed(e.getEntityItem()))
+						if(!e.getEntityData().getBoolean("PreventRemoteMovement") && !isBlackListed(e.getEntityItem()))
 						{
 							isPulling = true;
 							
