@@ -1,2 +1,2 @@
 # SimpleMagnet
-A standalone item magnet mod for Minecraft 1.9.4
+Old code. This repo is only used for issue tracking now
